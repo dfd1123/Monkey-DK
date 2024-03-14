@@ -4,7 +4,7 @@
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
-    "types": ["@emotion/react/types/css-prop"],
+    "types": ["@emotion/react/types/css-prop", "jest", "mocha"],
     "importHelpers": true,
     // output .d.ts declaration files for consumers
     "declaration": true,
