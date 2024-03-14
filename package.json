@@ -10,11 +10,11 @@
     "node": ">=10"
   },
   "scripts": {
-    "dev": "cd document && pnpm dev",
-    "start": "pnpm start:utils & pnpm start:components",
+    "dev": "cd document && yarn dev",
+    "start": "yarn start:utils & yarn start:components",
     "start:utils": "tsdx watch --entry ./src/utils/index.ts",
     "start:components": "tsdx watch --entry ./src/components/index.tsx",
-    "build": "pnpm build:utils & pnpm build:components",
+    "build": "yarn build:utils & yarn build:components",
     "build:utils": "tsdx build --entry ./src/utils/index.ts",
     "build:components": "tsdx build --entry ./src/components/index.tsx",
     "test": "tsdx test --passWithNoTests",
