@@ -1,0 +1,70 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "dev": "cd document && pnpm dev",
+    "start": "pnpm start:utils & pnpm start:components",
+    "start:utils": "tsdx watch --entry ./src/utils/index.ts",
+    "start:components": "tsdx watch --entry ./src/components/index.tsx",
+    "build:utils": "tsdx build --entry ./src/utils/index.ts",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "monkey-d",
+  "author": "Derek Kim",
+  "module": "dist/monkey-d.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/monkey-d.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/monkey-d.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^11.0.3",
+    "@types/react": "^18.2.65",
+    "@types/react-dom": "^18.2.21",
+    "cpy-cli": "^5.0.0",
+    "husky": "^9.0.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "size-limit": "^11.0.3",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "styled-components": "^6.1.8"
+  }
+}
