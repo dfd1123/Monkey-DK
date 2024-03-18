@@ -1,5 +1,5 @@
-import { test } from "./forReactUtils";
+import {cn} from './forReactUtils';
 
 export {
-    test
-}
+	cn,
+};

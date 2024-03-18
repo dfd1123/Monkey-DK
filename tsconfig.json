@@ -1,8 +1,10 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "include": ["src", "types"],
+  "include": ["src", "types", "document/next-env.d.ts", "document/**/*.ts", "document/**/*.tsx", "document/.next/types/**/*.ts"],
+  "exclude": ["build", "**/*.mjs"],
   "compilerOptions": {
-    "module": "esnext",
+    "module": "es2015",
+    "target": "es2015",
     "lib": ["dom", "esnext"],
     "types": ["@emotion/react/types/css-prop", "jest", "mocha"],
     "importHelpers": true,
@@ -11,7 +13,7 @@
     // output .js.map sourcemap files for consumers
     "sourceMap": true,
     // match output dir to input dir. e.g. dist/index instead of dist/src/index
-    "rootDir": "./src",
+    "rootDir": ".",
     // stricter type-checking for stronger correctness. Recommended by TS
     "strict": true,
     // linter checks for common issues

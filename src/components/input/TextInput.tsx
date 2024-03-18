@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import {test111} from '../../modules';
 
 export type PropsType = {
 	className?: string;
 };
 
-const TextInputComp = ({className}: PropsType) => {
-	test111();
+const TextInputComp = ({ className }: PropsType) => {
 
 	return (
 		<div className={className}>TextInput</div>
