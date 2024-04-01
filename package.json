@@ -1,6 +1,6 @@
 {
   "name": "monkey-dk",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "dist/index.js",
   "author": "Derek KIM",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",
     "@types/webpack-sources": "^3.2.3",
-    "chokidar": "^3.6.0",
+    "chokidar": "2.1.8",
     "fs-extra": "^11.2.0",
     "rollup": "^4.13.2",
     "rollup-plugin-node-builtins": "^2.1.2",
