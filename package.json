@@ -1,12 +1,12 @@
 {
   "name": "monkey-dk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Derek KIM",
   "license": "MIT",
   "files": [
-    "dist/components/.",
-    "dist/modules/.",
-    "dist/utils/."
+    "dist/components",
+    "dist/modules",
+    "dist/utils"
   ],
   "engines": {
     "node": ">=16"
