@@ -4,7 +4,9 @@
   "author": "Derek KIM",
   "license": "MIT",
   "files": [
-    "dist/."
+    "dist/components/.",
+    "dist/modules/.",
+    "dist/utils/."
   ],
   "engines": {
     "node": ">=16"
