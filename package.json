@@ -1,16 +1,15 @@
 {
   "name": "monkey-dk",
-  "version": "1.0.6",
+  "version": "1.0.7",
+  "main": "dist/index.js",
   "author": "Derek KIM",
   "license": "MIT",
-  "files": [
-    "dist/components",
-    "dist/modules",
-    "dist/utils"
-  ],
   "engines": {
     "node": ">=16"
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.24.1",
     "@babel/core": "^7.24.3",
