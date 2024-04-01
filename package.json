@@ -1,8 +1,9 @@
 {
   "name": "monkey-d",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": "Derek KIM",
   "license": "MIT",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=16"
   },
@@ -12,9 +13,10 @@
     "dist/utils"
   ],
   "exports": {
-    "./components": "./dist/components",
-    "./modules": "./dist/modules",
-    "./utils": "./dist/utils"
+    ".": "./dist/index.js",
+    "./components": "./dist/components/index.js",
+    "./modules": "./dist/modules/index.js",
+    "./utils": "./dist/utils/index.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.1",
