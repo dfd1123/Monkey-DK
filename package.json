@@ -1,9 +1,11 @@
 {
   "name": "monkey-dk",
-  "version": "1.0.1",
-  "main": "index.js",
+  "version": "1.0.2",
   "author": "Derek KIM",
   "license": "MIT",
+  "files": [
+    "dist/."
+  ],
   "engines": {
     "node": ">=16"
   },
