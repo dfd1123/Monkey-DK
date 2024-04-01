@@ -6,7 +6,7 @@ module.exports = function organizer ({ target }) {
     return {
         name: 'monkey-d-build-organizer',
         async writeBundle(){
-            const typeDir = path.join(process.cwd(), `dist/${target}/types`);
+            const typeDir = path.join(process.cwd(), target ? `dist/${target}/types` : 'dist/types');
             const copyTypeDir = `${typeDir}/${target}`;
             const destDir = path.join(process.cwd(), `dist/${target}`);
 

@@ -1,6 +1,6 @@
 {
   "name": "monkey-d",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Derek KIM",
   "license": "MIT",
   "main": "dist/index.js",
@@ -8,9 +8,7 @@
     "node": ">=16"
   },
   "files": [
-    "dist/components",
-    "dist/modules",
-    "dist/utils"
+    "dist"
   ],
   "exports": {
     ".": "./dist/index.js",
