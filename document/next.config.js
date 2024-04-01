@@ -1,6 +1,6 @@
 const path = require('node:path');
 const { config } = require('node:process');
-const { WebpackSvgComponentPlugin } = require('../build/modules')
+const { WebpackSvgComponentPlugin } = require('../dist/modules')
 
 /** @type {import('next').NextConfig} */
 module.exports = {
@@ -16,8 +16,13 @@ module.exports = {
     plugins.push(new WebpackSvgComponentPlugin({
       svgFileDir: './public/svgs', 
       outputDir: './src/components/common/svg',
-      removeViewBox: true,
-      typescript: true
+      // removeViewBox: true,
+      typescript: true,
+      svgo: {
+        plugins: [
+          "removeDimensions"
+        ]
+      }
     }))
 
     return config;

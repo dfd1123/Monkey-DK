@@ -7,7 +7,7 @@ import { TextInput } from 'monkey-D/components';
 export default function Home() {
 	return (
 		<main>
-      s
+      <TextInput />
 		</main>
 	);
 }

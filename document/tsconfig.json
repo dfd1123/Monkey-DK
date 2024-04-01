@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "composite": true,
     "plugins": [
       {
         "name": "next"
@@ -19,9 +20,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "monkey-D/components": ["../build/components/."],
-      "monkey-D/modules": ["../build/modules/."],
-      "monkey-D/utils": ["../build/utils/."]
+      "monkey-D/components": ["../dist/components/."],
+      "monkey-D/modules": ["../dist/modules/."],
+      "monkey-D/utils": ["../dist/utils/."]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

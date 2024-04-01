@@ -1,39 +1,32 @@
 {
-  // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "include": ["src", "types", "document/next-env.d.ts", "document/**/*.ts", "document/**/*.tsx", "document/.next/types/**/*.ts"],
-  "exclude": ["build", "**/*.mjs"],
-  "compilerOptions": {
-    "module": "es2015",
-    "target": "es2015",
-    "lib": ["dom", "esnext"],
-    "types": ["@emotion/react/types/css-prop", "jest", "mocha"],
-    "importHelpers": true,
-    // output .d.ts declaration files for consumers
-    "declaration": true,
-    // output .js.map sourcemap files for consumers
-    "sourceMap": true,
-    // match output dir to input dir. e.g. dist/index instead of dist/src/index
-    "rootDir": ".",
-    // stricter type-checking for stronger correctness. Recommended by TS
-    "strict": true,
-    // linter checks for common issues
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    // noUnused* overlap with @typescript-eslint/no-unused-vars, can disable if duplicative
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    // use Node's module resolution algorithm, instead of the legacy TS one
-    "moduleResolution": "node",
-    // transpile JSX to React.createElement
-    "jsx": "react",
-    // interop between ESM and CJS modules. Recommended by TS
-    "esModuleInterop": true,
-    // significant perf increase by skipping checking .d.ts files, particularly those in node_modules. Recommended by TS
-    "skipLibCheck": true,
-    // error out if import and file system have a casing mismatch. Recommended by TS
-    "forceConsistentCasingInFileNames": true,
-    // `tsdx build` ignores this option, but it is commonly used when type-checking separately with `tsc`
-    "noEmit": true,
-    "outDir": "types",
-  },
+    "include": ["src", "src/modules"],
+    "exclude": ["node_modules", "dist"],
+    "compilerOptions": {
+        "target": "es6" /* 최신 브라우저는 es6을 대부분 지원한다. */,
+        "module": "esnext" /* 모듈 시스템을 지정한다. */,
+        "lib": ["dom", "esnext"],
+        "types": ["@emotion/react/types/css-prop"],
+        "jsx": "react",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "importHelpers": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "declaration": true /* 타입스크립트가 자동으로 타입정의 (d.ts) 파일을 생성해 준다. */,
+        "declarationDir": "dist/types",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "outDir": "./dist" /* 컴파일된 결과물을 어디에 저장할지에 대한 것을 명시해 준다. */,
+        "isolatedModules": true,
+        "strict": true, /* 타입스크립트의 엄격한 모드를 활성화한다. */
+
+
+        // linter checks for common issues
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        // error out if import and file system have a casing mismatch. Recommended by TS
+        "forceConsistentCasingInFileNames": true,
+        // `tsdx build` ignores this option, but it is commonly used when type-checking separately with `tsc`
+        "noEmit": true,
+    }
 }

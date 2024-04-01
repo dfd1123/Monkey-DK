@@ -1,0 +1,16 @@
+{
+    "presets": [
+      "@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"
+    ],
+    "plugins": [
+      "@emotion",
+      [
+        "@babel/plugin-transform-runtime",
+        { 
+          "helpers": true,
+          "regenerator": true,
+          "corejs": false
+        }
+      ]
+    ]
+  }

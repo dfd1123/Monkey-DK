@@ -1,98 +1,58 @@
 {
-  "root": true,
-  "version": "0.1.0",
+  "name": "monkey-dk",
+  "version": "1.0.1",
+  "main": "index.js",
+  "author": "Derek KIM",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
-  "scripts": {
-    "dev": "cd document && yarn dev",
-    "start": "yarn start:utils & yarn start:modules & yarn start:components",
-    "start:utils": "tsdx watch --entry ./src/utils/index.ts",
-    "start:modules": "tsdx watch --entry ./src/modules/index.ts",
-    "start:components": "tsdx watch --entry ./src/components/index.tsx",
-    "build": "yarn build:utils & yarn build:modules & yarn build:components && node scripts/buildAfterProcess.js",
-    "build:utils": "tsdx build --entry ./src/utils/index.ts",
-    "build:modules": "tsdx build --entry ./src/modules/index.ts",
-    "build:components": "tsdx build --entry ./src/components/index.tsx",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+  "devDependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.3",
+    "@babel/node": "^7.23.9",
+    "@babel/plugin-transform-runtime": "^7.24.3",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.24.3",
+    "@babel/preset-react": "^7.24.1",
+    "@babel/preset-typescript": "^7.24.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/lodash": "^4.17.0",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.23",
+    "@types/webpack-sources": "^3.2.3",
+    "chokidar": "^3.6.0",
+    "fs-extra": "^11.2.0",
+    "rollup": "^4.13.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.3",
+    "webpack-sources": "^3.2.3"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "@emotion/react": ">=10",
+    "@emotion/styled": ">=10",
+    "react": ">=16",
+    "react-dom": ">=16"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "name": "monkey-d",
-  "author": "Derek Kim",
-  "module": "dist/monkey-d.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/monkey-d.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/monkey-d.esm.js",
-      "limit": "10 KB"
-    }
-  ],
-  "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@size-limit/preset-small-lib": "^11.0.3",
-    "@types/jest": "^29.5.12",
-    "@types/lodash": "^4.17.0",
-    "@types/mocha": "^10.0.6",
-    "@types/react": "^18.2.65",
-    "@types/react-dom": "^18.2.21",
-    "@typescript-eslint/eslint-plugin": ">=7.0.2",
-    "@typescript-eslint/parser": ">=7.0.2",
-    "cpy-cli": "^5.0.0",
-    "eslint": ">=8.56.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-config-xo": "^0.44.0",
-    "eslint-config-xo-typescript": "^4.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jsx-a11y": "^6.8.0",
-    "eslint-plugin-react": "^7.34.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "fs-extra": "^11.2.0",
-    "husky": "^9.0.11",
-    "jest": "^29.7.0",
-    "mocha": "^10.3.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-delete": "^2.0.0",
-    "size-limit": "^11.0.3",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.6.2",
-    "typescript": "^5.4.2"
+  "scripts": {
+    "start": "rollup -cw",
+    "build": "rollup -c",
+    "prepare": "yarn build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
-    "@svgr/core": "^8.1.0",
-    "chokidar": "^3.6.0",
     "lodash": "^4.17.21",
-    "node-fetch": "2.6.1",
-    "styled-components": "^6.1.8"
+    "lodash-es": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "svgo": "^3.2.0"
   }
 }

@@ -1,17 +1,19 @@
 import path from 'path';
-import { readdir, writeFile, readFile, mkdir } from 'fs/promises';
-import { existsSync } from 'fs';
-import _debounce from 'lodash/debounce';
-import _startCase from 'lodash/startCase';
+import { existsSync, promises } from 'fs';
+import { startCase } from 'lodash-es';
+import { SVG_ATTRIBUTE_KEYS } from './svgConst';
+import { Config as SvgConfig, optimize } from 'svgo';
 
-// const svgFileDir = path.resolve(__dirname, '../');
+const { readdir, writeFile, readFile, mkdir } = promises;
 
 export type SvgComponentGeneratorOption = {
 	svgFileDir: string; 
 	outputDir?: string;
-	removeViewBox?: boolean;
 	typescript?: boolean;
 	useSvgr?: boolean;
+	title?: boolean;
+	description?: boolean;
+	svgo?: Omit<SvgConfig, 'path'>;
 };
 
 let generating = false;
@@ -35,13 +37,18 @@ class SvgComponentGenerator {
    */
 	private readonly outputDir: string;
 	/**
-   * SVG에서 viewBox를 제거할지 여부
-   */
-	private readonly removeViewBox: boolean;
-	/**
    * SVGR을 사용할지 여부
    */
 	private readonly useSvgr: boolean;
+	/**
+   * SVG Title 태그를 노출할지 여부
+   */
+	private readonly title: boolean;
+	/**
+   * SVG Desc 태그를 노출할지 여부
+   */
+	private readonly description: boolean;
+	private readonly svgo?: Omit<SvgConfig, 'path'>;
   
 	/**
    * SvgComponentGenerator 클래스의 생성자입니다.
@@ -50,15 +57,19 @@ class SvgComponentGenerator {
 	constructor({ 
 		svgFileDir,
 		outputDir,
-		removeViewBox = false,
 		typescript = false, 
 		useSvgr = false,
+		title = false,
+		description = false,
+		svgo
 	}: SvgComponentGeneratorOption) {
 		this.svgFileDir = svgFileDir;
 		this.outputDir = outputDir ?? svgFileDir;
-		this.removeViewBox = removeViewBox;
 		this.useSvgr = useSvgr;
 		this.typescript = typescript;
+		this.title = title;
+		this.description = description;
+		this.svgo = svgo;
 	}
 
 	/**
@@ -70,11 +81,12 @@ class SvgComponentGenerator {
 		const fileList = list.map((file) => `${file.replace('.svg', '')}`);
   
 		const staticSvgIconName = fileList.map(item => `'${item}'`).join(' | ');
+		const svgComponentName = fileList.map(item => `'${`Svg${startCase(item.replace(/\//gi, '-').replace('.svg', '')).replace(/ /gi, '')}'`}`).join(' | ');
 		const particalSvgObj = fileList.filter(item => item.includes('/')).reduce<Record<string, string>>((acc, cur) => {
 			const arr = cur.split('/');
 			const fileName = arr.pop();
   
-			const directoryPascalName = _startCase(arr.join('-')).replace(/ /gi, '');
+			const directoryPascalName = startCase(arr.join('-')).replace(/ /gi, '');
   
 			return {
 				...acc,
@@ -84,7 +96,7 @@ class SvgComponentGenerator {
   
 		const particalSvgIconName = Object.entries(particalSvgObj).map(([key, value]) => `export type ${key}IconType = ${value};\n`).join('');
   
-		return { staticSvgIconName, particalSvgIconName };
+		return { staticSvgIconName, particalSvgIconName, svgComponentName };
 	}
 
 	/**
@@ -94,7 +106,7 @@ class SvgComponentGenerator {
    */
 	async parseSvgListForFile(list: string[]) {
 		const fileObject =  list.reduce<Record<string, string>>((acc, cur) => {
-			const fileName = `Svg${_startCase(cur.replace(/\//gi, '-').replace('.svg', '')).replace(/ /gi, '')}`;
+			const fileName = `Svg${startCase(cur.replace(/\//gi, '-').replace('.svg', '')).replace(/ /gi, '')}`;
 			acc = {
 				...acc,
 				[fileName]: cur,
@@ -109,19 +121,42 @@ class SvgComponentGenerator {
 		let componentFuncsString = '';
 
 		for (const [key, value] of fileList) {
-			const data = await readFile(`${this.svgFileDir}/${value}`, 'utf8');
+			let data = await readFile(`${this.svgFileDir}/${value}`, 'utf8');
+
+			if(this.svgo){
+				const result = optimize(data, this.svgo)
+				data = result.data;
+			}
 
 			const regex = /(<svg[^>]*)/;
 			const replacement = '$1 {...props}';
-			let svgElement = data.replace(/([a-z])-([a-z])/g, function (_, p1, p2) {
-				return `${p1}${p2.toUpperCase()}`;
-			}).replace(regex, replacement);
+			let svgElement = data.replace(/(\s[a-z]+[-:][a-z]+)(?==)/g, function (match, p1) {
+				// p1은 매칭된 전체 문자열입니다.
+				// 이제 -나 :을 기준으로 앞뒤 문자를 변환
+				const resultAttr = (p1 as string).replace(/([a-z])[-:]([a-z])/g, function (_, p1, p2) {
+					// 첫 번째 그룹과 두 번째 그룹을 연결하되, 두 번째 그룹의 첫 글자는 대문자로 변환
+					return `${p1}${p2.toUpperCase()}`;
+				});
+				
+				// 변환된 속성 이름이 SVG_ATTRIBUTE_KEYS 배열에 포함되어 있는지 확인
+				// 이 부분은 원래 코드의 의도대로 유지
+				if (SVG_ATTRIBUTE_KEYS.includes(resultAttr.trim())) {
+					return resultAttr;
+				}
+			
+				// 조건에 맞지 않으면 원래 매칭된 문자열 반환
+				return match;
+			}).replace('class="', 'className="').replace(regex, replacement);
 
-			if (this.removeViewBox) {
-				svgElement = svgElement.replace(/viewBox="[^"]*"/gi, '');
+			if (this.description) {
+				svgElement = svgElement.replace(/(<svg[^>]*>)/g, '$1{!!props.description && <desc>{props.description}</desc>}');
 			}
 
-			const type = 'React.SVGAttributes<SVGSVGElement>';
+			if (this.title) {
+				svgElement = svgElement.replace(/(<svg[^>]*>)/g, `$1<title>{props.title ?? '${key}'}</title>`);
+			}
+
+			const type = 'React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; }';
 
 			componentFuncsString += `const ${key} = (props${this.typescript ? `: ${type}` : ''} = {}) => { return (${svgElement}); };\n`;
 		}
@@ -177,7 +212,7 @@ class SvgComponentGenerator {
 	async writeSvgTypeFile(list: string[]) {
 		if (!this.typescript) return;
 
-		const { staticSvgIconName, particalSvgIconName } = this.parseSvgListForType(list);
+		const { staticSvgIconName, particalSvgIconName, svgComponentName } = this.parseSvgListForType(list);
 
 		const typeDir = `${this.outputDir}/types`;
 
@@ -186,7 +221,8 @@ class SvgComponentGenerator {
 		if (existsSync(typeDir)) {
 			return writeFile(
 				`${typeDir}/index.d.ts`,
-				`/* eslint-disable */\nexport type StaticSvgIconName = ${staticSvgIconName};\n${particalSvgIconName}`,
+				`/* eslint-disable */\nexport type StaticSvgIconName = ${staticSvgIconName};\n${particalSvgIconName}`
+        + `export type SvgComponentName = ${svgComponentName}`,
 				{ flag: 'w' },
 			)
 				.then(() => {
