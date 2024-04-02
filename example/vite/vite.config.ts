@@ -5,5 +5,10 @@ import { viteSvgComponentPlugin } from 'monkey-d/modules'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), viteSvgComponentPlugin({svgFileDir: 'src/assets/svgs', typescript: true})],
+  plugins: [
+    react(), 
+    viteSvgComponentPlugin({
+      svgFileDir: 'src/assets/svgs', 
+      typescript: true
+    })],
 })
