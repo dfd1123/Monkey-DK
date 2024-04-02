@@ -1,5 +1,5 @@
-import TextInput from './input/TextInput';
+import MkInput from './input/MkInput';
 
 export {
-	TextInput,
+	MkInput,
 };
