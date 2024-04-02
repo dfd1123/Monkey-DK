@@ -1,10 +1,11 @@
 {
   "name": "monkey-d",
-  "version": "1.1.8",
+  "version": "1.1.10",
   "author": "Derek KIM",
   "license": "MIT",
   "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "typings": "dist/types/index.d.ts",
+  "module": "dist/index.esm.js",
   "engines": {
     "node": ">=16"
   },
