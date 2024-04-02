@@ -1427,10 +1427,10 @@ minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
   dependencies:
     brace-expansion "^1.1.7"
 
-monkey-d@^1.1.15:
-  version "1.1.15"
-  resolved "https://registry.yarnpkg.com/monkey-d/-/monkey-d-1.1.15.tgz#8e129fa39d114b88f9dbe7e0d81c5dda6cb574d7"
-  integrity sha512-s0dmsem5ERBF9BG6GePmq2zwQI/qpiCZH+kcAWZ8JndcSIP1M7zqj9IK5chU4IV9k/wDyIorPOFxxIuPEsA+vw==
+monkey-d@^1.1.16:
+  version "1.1.16"
+  resolved "https://registry.yarnpkg.com/monkey-d/-/monkey-d-1.1.16.tgz#46691933db0a599858e7765a7ef83756d33f1f3f"
+  integrity sha512-GRJnNovORgPv4W599l+8vL6ETkJnYf0cUmpKI4JKLoSCvF6flVTFgN71VXpe3EdRaWbcxmroyPFy1imJOVucjQ==
   dependencies:
     "@emotion/react" "^11.11.4"
     "@emotion/styled" "^11.11.0"
