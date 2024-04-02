@@ -1,6 +1,6 @@
 {
   "name": "monkey-d",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "author": "Derek KIM",
   "license": "MIT",
   "main": "dist/index.js",
@@ -15,18 +15,18 @@
   "exports": {
     "./components": {
       "types": "./dist/components/index.d.ts",
-      "import": "./dist/components/index.js",
-      "require": "./dist/components/index.js"
+      "import": "./dist/components/index.esm.js",
+      "require": "./dist/components/index.cjs.js"
     },
     "./modules": {
       "types": "./dist/modules/index.d.ts",
-      "import": "./dist/modules/index.js",
-      "require": "./dist/modules/index.js"
+      "import": "./dist/modules/index.esm.js",
+      "require": "./dist/modules/index.cjs.js"
     },
     "./utils": {
       "types": "./dist/utils/index.d.ts",
-      "import": "./dist/utils/index.js",
-      "require": "./dist/utils/index.js"
+      "import": "./dist/utils/index.esm.js",
+      "require": "./dist/utils/index.cjs.js"
     }
   },
   "devDependencies": {
