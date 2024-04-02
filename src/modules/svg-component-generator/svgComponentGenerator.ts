@@ -49,6 +49,9 @@ class SvgComponentGenerator {
    * SVG Desc 태그를 노출할지 여부
    */
 	private readonly description: boolean;
+	/**
+	 * SVGO 옵션
+	 */
 	private readonly svgo?: Omit<SvgConfig, 'path'>;
   
 	/**
