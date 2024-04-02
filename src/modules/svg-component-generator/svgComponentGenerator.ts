@@ -3,12 +3,12 @@ import { existsSync, promises } from 'fs';
 import { remove } from 'fs-extra';
 import { startCase } from 'lodash-es';
 import { SVG_ATTRIBUTE_KEYS } from './svgConst';
-import { Config as SvgConfig, optimize } from 'svgo';
+import { type Config as SvgConfig, optimize } from 'svgo';
 
 const { readdir, writeFile, readFile, mkdir } = promises;
 
 export type SvgComponentGeneratorOption = {
-	svgFileDir: string; 
+	svgFileDir: string;
 	outputDir?: string;
 	typescript?: boolean;
 	useSvgr?: boolean;
@@ -53,19 +53,19 @@ class SvgComponentGenerator {
 	 * SVGO 옵션
 	 */
 	private readonly svgo?: Omit<SvgConfig, 'path'>;
-  
+
 	/**
    * SvgComponentGenerator 클래스의 생성자입니다.
    * @param {SvgComponentGeneratorOption} SVG 컴포넌트 생성 옵션 객체
    */
-	constructor({ 
+	constructor({
 		svgFileDir,
 		outputDir,
-		typescript = false, 
+		typescript = false,
 		useSvgr = false,
 		title = false,
 		description = false,
-		svgo
+		svgo,
 	}: SvgComponentGeneratorOption) {
 		this.svgFileDir = svgFileDir;
 		this.outputDir = outputDir ?? svgFileDir;
@@ -82,24 +82,24 @@ class SvgComponentGenerator {
    * @returns 타입 정의 문자열
    */
 	parseSvgListForType(list: string[]) {
-		const fileList = list.map((file) => `${file.replace('.svg', '')}`);
-  
+		const fileList = list.map(file => `${file.replace('.svg', '')}`);
+
 		const staticSvgIconName = fileList.map(item => `'${item}'`).join(' | ');
 		const svgComponentName = fileList.map(item => `'${`Svg${startCase(item.replace(/\//gi, '-').replace('.svg', '')).replace(/ /gi, '')}'`}`).join(' | ');
 		const particalSvgObj = fileList.filter(item => item.includes('/')).reduce<Record<string, string>>((acc, cur) => {
 			const arr = cur.split('/');
 			const fileName = arr.pop();
-  
+
 			const directoryPascalName = startCase(arr.join('-')).replace(/ /gi, '');
-  
+
 			return {
 				...acc,
 				[directoryPascalName]: acc[directoryPascalName] ? `${acc[directoryPascalName]} | '${fileName}'` : `'${fileName}'`,
 			};
 		}, {});
-  
+
 		const particalSvgIconName = Object.entries(particalSvgObj).map(([key, value]) => `export type ${key}IconType = ${value};\n`).join('');
-  
+
 		return { staticSvgIconName, particalSvgIconName, svgComponentName };
 	}
 
@@ -109,45 +109,48 @@ class SvgComponentGenerator {
    * @returns React 컴포넌트 문자열과 관련 정보
    */
 	async parseSvgListForFile(list: string[]) {
-		const fileObject =  list.reduce<Record<string, string>>((acc, cur) => {
+		const fileObject = list.reduce<Record<string, string>>((acc, cur) => {
 			const fileName = `Svg${startCase(cur.replace(/\//gi, '-').replace('.svg', '')).replace(/ /gi, '')}`;
 			acc = {
 				...acc,
 				[fileName]: cur,
 			};
-  
+
 			return acc;
 		}, {});
 		const fileList = Object.entries(fileObject);
 		const relativePath = path.relative(this.outputDir, this.svgFileDir);
-		const importString = fileList.reduce((acc, [key, value]) => acc += `import ${key} from '${relativePath}/${value}';\n`, '').replace(/\n/gi, '');
+		const importString = fileList.reduce((acc, [key, value]) => {
+			acc += `import ${key} from '${relativePath}/${value}';\n`;
+			return acc;
+		}, '').replace(/\n/gi, '');
 
 		let componentFuncsString = '';
 
 		for (const [key, value] of fileList) {
 			let data = await readFile(`${this.svgFileDir}/${value}`, 'utf8');
 
-			if(this.svgo){
-				const result = optimize(data, this.svgo)
+			if (this.svgo) {
+				const result = optimize(data, this.svgo);
 				data = result.data;
 			}
 
 			const regex = /(<svg[^>]*)/;
 			const replacement = '$1 {...props}';
-			let svgElement = data.replace(/(\s[a-z]+[-:][a-z]+)(?==)/g, function (match, p1) {
-				// p1은 매칭된 전체 문자열입니다.
+			let svgElement = data.replace(/(\s[a-z]+[-:][a-z]+)(?==)/g, (match, p1) => {
+				// P1은 매칭된 전체 문자열입니다.
 				// 이제 -나 :을 기준으로 앞뒤 문자를 변환
-				const resultAttr = (p1 as string).replace(/([a-z])[-:]([a-z])/g, function (_, p1, p2) {
+				const resultAttr = (p1 as string).replace(/([a-z])[-:]([a-z])/g, (_, p1, p2) =>
 					// 첫 번째 그룹과 두 번째 그룹을 연결하되, 두 번째 그룹의 첫 글자는 대문자로 변환
-					return `${p1}${p2.toUpperCase()}`;
-				});
-				
+					`${p1}${(p2 as string).toUpperCase()}`,
+				);
+
 				// 변환된 속성 이름이 SVG_ATTRIBUTE_KEYS 배열에 포함되어 있는지 확인
 				// 이 부분은 원래 코드의 의도대로 유지
 				if (SVG_ATTRIBUTE_KEYS.includes(resultAttr.trim())) {
 					return resultAttr;
 				}
-			
+
 				// 조건에 맞지 않으면 원래 매칭된 문자열 반환
 				return match;
 			}).replace('class="', 'className="').replace(regex, replacement);
@@ -166,13 +169,18 @@ class SvgComponentGenerator {
 		}
 
 		const exportString = fileList.reduce((acc, [key, _value], index) => {
-			if (index === 0) acc = 'export {\n';
+			if (index === 0) {
+				acc = 'export {\n';
+			}
+
 			acc += `${index !== 0 ? ',' : ''}  ${key}\n`;
-			if (index === Object.entries(fileObject).length - 1) acc += ' };';
-  
+			if (index === Object.entries(fileObject).length - 1) {
+				acc += ' };';
+			}
+
 			return acc;
 		}, '').replace(/\n/gi, '');
-  
+
 		return { importString, componentFuncsString, exportString };
 	}
 
@@ -183,9 +191,8 @@ class SvgComponentGenerator {
    */
 	filterSvgFileNameList(list: string[]) {
 		return list
-			.filter((name) => name.endsWith('.svg'));
+			.filter(name => name.endsWith('.svg'));
 	}
-
 
 	/**
    * 지정된 디렉토리에서 SVG 파일 리스트를 읽습니다.
@@ -196,7 +203,7 @@ class SvgComponentGenerator {
 	readSvgFileList = async (dir: string, dirName = ''): Promise<string[]> => {
 		const dirents = await readdir(dir, { withFileTypes: true });
 		const files = await Promise.all(
-			dirents.map(async (dirent) => {
+			dirents.map(async dirent => {
 				const newDirName = `${dirName ? `${dirName}/` : ''}${dirent.name}`;
 				const res = path.resolve(dir, dirent.name);
 				return dirent.isDirectory() && dirent.name !== 'types'
@@ -205,7 +212,7 @@ class SvgComponentGenerator {
 			}),
 		);
 		const concatList = Array.prototype.concat(...files) as string[];
-  
+
 		return concatList;
 	};
 
@@ -214,14 +221,16 @@ class SvgComponentGenerator {
    * @param {string[]} list SVG 파일 이름 리스트
    */
 	async writeSvgTypeFile(list: string[]) {
-		if (!this.typescript) return;
+		if (!this.typescript) {
+			return;
+		}
 
 		const { staticSvgIconName, particalSvgIconName, svgComponentName } = this.parseSvgListForType(list);
 
 		const typeDir = `${this.outputDir}/types`;
 
 		await mkdir(typeDir, { recursive: true });
-  
+
 		if (existsSync(typeDir)) {
 			return writeFile(
 				`${typeDir}/index.d.ts`,
@@ -230,12 +239,10 @@ class SvgComponentGenerator {
 				{ flag: 'w' },
 			)
 				.then(() => {
-					console.log('✨[Static Svg Type File] is Generated!'); 
+					console.log('✨[Static Svg Type File] is Generated!');
 				})
 				.catch(console.error);
 		}
-
-		
 	}
 
 	/**
@@ -245,47 +252,45 @@ class SvgComponentGenerator {
 	async writeStaticSvgExportFile(list: string[]) {
 		const { componentFuncsString, importString, exportString } = await this.parseSvgListForFile(list);
 
-		const toBeDeleteFile = `${this.outputDir}/index.${this.typescript ? 'jsx' : 'tsx'}`
-		const toBeMakeFile = `${this.outputDir}/index.${this.typescript ? 'tsx' : 'jsx'}`
+		const toBeDeleteFile = `${this.outputDir}/index.${this.typescript ? 'jsx' : 'tsx'}`;
+		const toBeMakeFile = `${this.outputDir}/index.${this.typescript ? 'tsx' : 'jsx'}`;
 
 		await mkdir(this.outputDir, { recursive: true });
 
-		if(existsSync(toBeDeleteFile)){
+		if (existsSync(toBeDeleteFile)) {
 			remove(toBeDeleteFile);
 		}
-		
-  
+
 		return writeFile(
 			toBeMakeFile,
 			`/* eslint-disable */ \nimport React from "react";\n\n${this.useSvgr ? importString : componentFuncsString}\n${exportString}`,
 			{ flag: 'w' },
 		)
 			.then(() => {
-				console.log('✨[Static Svg Export File] is Generated!'); 
+				console.log('✨[Static Svg Export File] is Generated!');
 			})
 			.catch(console.error);
 	}
 
 	generate = async () => {
-		if (generating) return;
+		if (generating) {
+			return;
+		}
 
 		try {
 			generating = true;
 
 			const fileNameList = await this.readSvgFileList(this.svgFileDir);
 			const svgFileList = this.filterSvgFileNameList(fileNameList);
-      
+
 			await this.writeSvgTypeFile(svgFileList);
 			await this.writeStaticSvgExportFile(svgFileList);
 		} finally {
 			setTimeout(() => {
 				generating = false;
 			}, 1500);
-			
 		}
-   
 	};
 }
-
 
 export default SvgComponentGenerator;

@@ -1,8 +1,8 @@
 import chokidar from 'chokidar';
-import SvgComponentGenerator, { SvgComponentGeneratorOption } from '../svgComponentGenerator';
+import SvgComponentGenerator, { type SvgComponentGeneratorOption } from '../svgComponentGenerator';
 
 type WebpackPluginOptions = SvgComponentGeneratorOption & {
-	// types
+	// Types
 };
 
 type Compiler = {
@@ -24,11 +24,13 @@ class WebpackSvgComponentPlugin {
 
 	constructor({ svgFileDir, outputDir, useSvgr, typescript, title, description, svgo }: WebpackPluginOptions) {
 		this.svgFileDir = svgFileDir;
-		this.svgCompGenertor = new SvgComponentGenerator({ svgFileDir, outputDir, useSvgr, typescript, title, description, svgo });
+		this.svgCompGenertor = new SvgComponentGenerator({
+			svgFileDir, outputDir, useSvgr, typescript, title, description, svgo,
+		});
 	}
 
 	async apply(compiler: Compiler) {
-		compiler.hooks.emit.tap('SvgComponentGeneratorPlugin', (_stats) => {
+		compiler.hooks.emit.tap('SvgComponentGeneratorPlugin', _stats => {
 			void this.svgCompGenertor.generate();
 		});
 
@@ -41,8 +43,9 @@ class WebpackSvgComponentPlugin {
 
 				process.once('SIGINT', () => {
 					if (this.watcher) {
-						void this.watcher.close();
+						this.watcher.close();
 					}
+
 					process.exit(0);
 				});
 			}
