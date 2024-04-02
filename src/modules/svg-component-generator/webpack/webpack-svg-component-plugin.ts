@@ -1,4 +1,5 @@
 import chokidar from 'chokidar';
+import path from 'path';
 import SvgComponentGenerator, { type SvgComponentGeneratorOption } from '../svgComponentGenerator';
 
 type WebpackPluginOptions = SvgComponentGeneratorOption & {
@@ -23,7 +24,7 @@ class WebpackSvgComponentPlugin {
 	private watcher?: chokidar.FSWatcher;
 
 	constructor({ svgFileDir, outputDir, useSvgr, typescript, title, description, svgo }: WebpackPluginOptions) {
-		this.svgFileDir = svgFileDir;
+		this.svgFileDir = path.join(process.cwd(), svgFileDir);
 		this.svgCompGenertor = new SvgComponentGenerator({
 			svgFileDir, outputDir, useSvgr, typescript, title, description, svgo,
 		});

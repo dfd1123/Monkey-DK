@@ -1,6 +1,6 @@
-import {type ArgumentArray} from 'classnames';
+import { type ArgumentArray } from 'classnames';
 import classNames from 'classnames/bind';
-import {cn} from 'monkey-d/utils';
+import { cn } from 'monkey-D/utils';
 
 /**
  *
@@ -9,7 +9,5 @@ import {cn} from 'monkey-d/utils';
 export const makeCxFunc = (style: Readonly<Record<string, string>>) => {
 	const cx = classNames.bind(style);
 
-	return (...args: ArgumentArray) => {
-		return `${cx(args)} ${cn(args)}`;
-	};
+	return (...args: ArgumentArray) => `${cx(args)} ${cn(args)}`;
 };

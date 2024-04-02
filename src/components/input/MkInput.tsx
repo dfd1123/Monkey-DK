@@ -1,6 +1,6 @@
 import React, { type InputHTMLAttributes, type ReactElement, useRef } from 'react';
 import styled from '@emotion/styled';
-import { cn } from '../../utils';
+import { cn } from '@/utils';
 
 type PropsType = {
 	className?: string;
@@ -9,7 +9,7 @@ type PropsType = {
 	resetIcon?: ReactElement;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const MkInputComp = ({ className }: PropsType) => {
+const MkInputComp = ({ className = '' }: PropsType) => {
 	const inpRef = useRef<HTMLInputElement>();
 
 	return (

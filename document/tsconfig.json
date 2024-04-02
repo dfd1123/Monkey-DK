@@ -12,16 +12,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "composite": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "monkey-D/components": ["../build/components/."],
+      "monkey-D/modules": ["../build/modules/."],
+      "monkey-D/utils": ["../build/utils/."]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "build", "next.config.js"]
+  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "build", "next.config.js", "next-env.d.ts", ".eslintrc.js"]
 }

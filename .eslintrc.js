@@ -16,6 +16,8 @@ module.exports = {
 				'.eslintrc.{js,cjs}',
 			],
 			parserOptions: {
+				project: true,
+				tsconfigRootDir: __dirname,
 				sourceType: 'script',
 			},
 		},
@@ -24,19 +26,28 @@ module.exports = {
 				'xo-typescript',
 			],
 			files: [
-				'*.ts',
-				'*.tsx',
+				'**/*.ts',
+				'**/*.tsx',
 			],
 			rules: {
 				'@typescript-eslint/ban-types': 'off',
 				'no-await-in-loop': 'off',
 				'no-negated-condition': 'off',
 				'@typescript-eslint/no-floating-promises': 'off',
+				'@typescript-eslint/no-unsafe-call': 'off',
+				'@typescript-eslint/no-unsafe-assignment': 'off',
+				' @typescript-eslint/no-unsafe-return': 'off',
+				'no-unsafe-assignment': 'off',
+				'@typescript-eslint/consistent-type-assertions': 'off',
+				'react/react-in-jsx-scope': 'off',
+				'arrow-body-style': ['error', 'as-needed'],
 				'@typescript-eslint/object-curly-spacing': ['error', 'always', {objectsInObjects: false}],
 			},
 		},
 	],
 	parserOptions: {
+		project: true,
+		tsconfigRootDir: __dirname,
 		ecmaVersion: 'latest',
 		sourceType: 'module',
 		ecmaFeatures: {
@@ -48,6 +59,8 @@ module.exports = {
 		'react',
 	],
 	rules: {
-
+		'@typescript-eslint/no-unsafe-assignment': 'off',
+		'no-unsafe-assignment': 'off',
+		'arrow-body-style': ['error', 'as-needed'],
 	},
 };

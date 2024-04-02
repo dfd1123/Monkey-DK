@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export const cn = (...args: Array<string | number | boolean | undefined | Record<string, any>>) => {
 	const classNames = args.reduce<string>((acc, cur) => {
 		if (typeof cur === 'string') {
@@ -18,4 +18,3 @@ export const cn = (...args: Array<string | number | boolean | undefined | Record
 
 	return classNames;
 };
-  
