@@ -1,5 +1,6 @@
 import path from 'path';
 import { existsSync, promises } from 'fs';
+import { remove } from 'fs-extra';
 import { startCase } from 'lodash-es';
 import { SVG_ATTRIBUTE_KEYS } from './svgConst';
 import { Config as SvgConfig, optimize } from 'svgo';
@@ -241,10 +242,18 @@ class SvgComponentGenerator {
 	async writeStaticSvgExportFile(list: string[]) {
 		const { componentFuncsString, importString, exportString } = await this.parseSvgListForFile(list);
 
+		const toBeDeleteFile = `${this.outputDir}/index.${this.typescript ? 'jsx' : 'tsx'}`
+		const toBeMakeFile = `${this.outputDir}/index.${this.typescript ? 'tsx' : 'jsx'}`
+
 		await mkdir(this.outputDir, { recursive: true });
+
+		if(existsSync(toBeDeleteFile)){
+			remove(toBeDeleteFile);
+		}
+		
   
 		return writeFile(
-			`${this.outputDir}/index.${this.typescript ? 'tsx' : 'jsx'}`,
+			toBeMakeFile,
 			`/* eslint-disable */ \nimport React from "react";\n\n${this.useSvgr ? importString : componentFuncsString}\n${exportString}`,
 			{ flag: 'w' },
 		)
