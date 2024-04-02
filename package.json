@@ -1,6 +1,6 @@
 {
   "name": "monkey-d",
-  "version": "1.1.16",
+  "version": "1.1.17",
   "author": "Derek KIM",
   "license": "MIT",
   "main": "dist/index.js",
