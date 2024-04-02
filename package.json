@@ -1,6 +1,6 @@
 {
   "name": "monkey-d",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "author": "Derek KIM",
   "license": "MIT",
   "main": "dist/index.js",
@@ -41,6 +41,7 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/lodash": "^4.17.0",
     "@types/lodash-es": "^4.17.12",
@@ -65,9 +66,9 @@
     "react-dom": ">=16"
   },
   "scripts": {
-    "start": "rollup -cw",
-    "build": "rollup -c",
-    "prepare": "yarn build"
+    "start": "NODE_ENV=development rollup -cw",
+    "build": "NODE_ENV=development rollup -c",
+    "prepare": "NODE_ENV=production yarn build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
