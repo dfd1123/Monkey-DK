@@ -1,6 +1,6 @@
 import {type ArgumentArray} from 'classnames';
 import classNames from 'classnames/bind';
-import {cn} from 'monkey-D/utils';
+import {cn} from 'monkey-d/utils';
 
 /**
  *

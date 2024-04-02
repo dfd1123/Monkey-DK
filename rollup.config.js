@@ -1,8 +1,9 @@
 const babel = require("@rollup/plugin-babel").default;
 const typescript = require("@rollup/plugin-typescript");
 const json = require("@rollup/plugin-json");
-const nodeBuiltins = require('rollup-plugin-node-builtins');
-const nodeGlobals = require('rollup-plugin-node-globals');
+// const nodeBuiltins = require('rollup-plugin-node-builtins');
+// const nodeGlobals = require('rollup-plugin-node-globals');
+const terser = require('@rollup/plugin-terser');
 const ignore = require('rollup-plugin-ignore');
 const resolve = require("@rollup/plugin-node-resolve").nodeResolve; // nodeResolve 함수를 직접 가져옴
 const commonjs = require("@rollup/plugin-commonjs");
@@ -34,6 +35,10 @@ const defaultConfig = {
     ],
 }
 
+if(process.env.NODE_ENV === 'production'){
+    defaultConfig.plugins.push(terser());
+}
+
 const rollupConfig = () => {
     return buildTargets.map((target) => {
         const plugins = [
@@ -43,7 +48,7 @@ const rollupConfig = () => {
                 target: target,
                 fileName: {
                     cjs: `${target}.cjs.js`,
-                    esm: `${target}.esm.js`
+                    esm: `${target}.esm.mjs`
                 }
             }) 
         ]
@@ -64,7 +69,7 @@ const rollupConfig = () => {
                     sourcemap: true,
                 },
                 {
-                    file: `dist/${target}/${target}.esm.js`,
+                    file: `dist/${target}/${target}.esm.mjs`,
                     format: 'esm',
                     sourcemap: true,
                 }
@@ -78,12 +83,11 @@ module.exports = [
         ...defaultConfig,
         plugins: [
             ...defaultConfig.plugins, 
-            organizer({target: ''}), 
             createIndexFilePlugin({
                 target: '',
                 fileName: {
                     cjs: `index.cjs.js`,
-                    esm: `index.esm.js`
+                    esm: `index.esm.mjs`
                 }
             }) 
         ],
@@ -95,7 +99,7 @@ module.exports = [
                 sourcemap: true,
             },
             {
-                file: `dist/index.esm.js`,
+                file: `dist/index.esm.mjs`,
                 format: 'esm',
                 sourcemap: true,
             }

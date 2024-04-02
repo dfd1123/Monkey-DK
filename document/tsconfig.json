@@ -19,10 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "monkey-D/components": ["../dist/components/."],
-      "monkey-D/modules": ["../dist/modules/."],
-      "monkey-D/utils": ["../dist/utils/."]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

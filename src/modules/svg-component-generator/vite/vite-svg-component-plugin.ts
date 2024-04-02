@@ -42,4 +42,4 @@ process.once('SIGINT', function () {
 	process.exit(0);
 });
 
-export default viteSvgComponentPlugin;
+export { viteSvgComponentPlugin };

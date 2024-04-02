@@ -2024,10 +2024,10 @@ minimist@^1.2.0, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-7.0.4.tgz#dbce03740f50a4786ba994c1fb908844d27b038c"
   integrity sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==
 
-monkey-d@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/monkey-d/-/monkey-d-1.1.0.tgz#71e16745f9cad1df02b6766a08e060e8f5286ad3"
-  integrity sha512-l+XUVS0EzN0puSZmsFTjqaX9UnDoSmRQ29LD5By53ab7i0yWpbWI9esni8fGcPXpV9YDIJIPohmzo6unu6APww==
+monkey-d@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/monkey-d/-/monkey-d-1.1.9.tgz#94c16ad3071e8873bb6a97c3658d5fe33ec1824d"
+  integrity sha512-PS2ranFVhfzE/oxuFPVvCYMfkA0DaxswDdjIGBbFCDu4JakXDnjzNjCCetw2zqKSzhlodH7Ub3/cBOle5SCYLQ==
   dependencies:
     "@emotion/react" "^11.11.4"
     "@emotion/styled" "^11.11.0"

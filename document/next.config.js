@@ -1,6 +1,6 @@
 const path = require('node:path');
 const { config } = require('node:process');
-const {WebpackSvgComponentPlugin} = require('monkey-d')
+const {WebpackSvgComponentPlugin} = require('monkey-d/modules');
 
 /** @type {import('next').NextConfig} */
 module.exports = {
