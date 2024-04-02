@@ -1,0 +1,26 @@
+{
+  "name": "storybook2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.0.23",
+    "@storybook/addon-interactions": "7.4.3 ",
+    "@storybook/addon-links": "7.4.3 ",
+    "@storybook/blocks": "7.4.3 ",
+    "@storybook/react": "7.4.3 ",
+    "@storybook/testing-library": "^0.2.2",
+    "env-cmd": "^10.1.0"
+  },
+  "scripts": {
+    "storybook": "env-cmd -e local storybook dev -p 6006",
+    "build-storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider storybook build"
+  },
+  "dependencies": {
+    "@storybook/addon-controls": "7.4.3 ",
+    "@storybook/nextjs": "7.4.3",
+    "react-docgen-typescript": "2.2.2",
+    "storybook": "7.4.3",
+    "storybook-addon-react-docgen": "1.2.43"
+  }
+}
