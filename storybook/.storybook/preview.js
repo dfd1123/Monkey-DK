@@ -1,7 +1,4 @@
-// import '@styles/global.scss';
-import {ToastProvider} from "~providers/toast";
-import LocaleProvider from '~providers/locale/provider/LocaleProvider';
-import ToastTemplate from '@components/atom/toast/ToastTemplate';
+// import '../../src/styles/reset.css';
 
 const preview = {
   parameters: {
@@ -25,12 +22,7 @@ const preview = {
   decorators: [
     (Story) => {
       return (
-        <LocaleProvider>
-        <ToastProvider toastComponent={ToastTemplate}>
           <Story />
-        </ToastProvider>
-        </LocaleProvider>
-        
       )
     }
   ]

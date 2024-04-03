@@ -41,6 +41,8 @@ module.exports = {
 				'@typescript-eslint/consistent-type-assertions': 'off',
 				'react/react-in-jsx-scope': 'off',
 				'arrow-body-style': ['error', 'as-needed'],
+				'jsx-quotes': ['error', 'prefer-double'],
+				'@typescript-eslint/consistent-type-definitions': ['interface', 'type'],
 				'@typescript-eslint/object-curly-spacing': ['error', 'always', {objectsInObjects: false}],
 			},
 		},

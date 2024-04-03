@@ -11,7 +11,7 @@ export default {
 } as Meta<typeof MkInput>;
 
 const Template: StoryTemplate = args => (
-	<MkInput {...args} />
+	<MkInput {...args} type="search" />
 );
 
 export const Default: StoryComponent = {

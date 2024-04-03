@@ -9,8 +9,7 @@ const config = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     '@storybook/addon-controls',
-    'storybook-addon-react-docgen',
-    'storybook-react-i18next'
+    'storybook-addon-react-docgen'
   ],
   framework: {
     name: '@storybook/nextjs'
@@ -24,6 +23,7 @@ const config = {
     reactDocgen: "react-docgen-typescript",
     reactDocgenTypescriptOptions: {
       shouldExtractLiteralValuesFromEnum: true,
+      shouldRemoveUndefinedFromOptional: true,
       propFilter: prop => {
         return prop.parent ? prop.parent.name !== 'DOMAttributes' && prop.parent.name !== 'HTMLAttributes' && prop.parent.name !== 'AriaAttributes' : true;
       }
@@ -35,13 +35,14 @@ const config = {
 
     config.plugins.push(new WebpackSvgComponentPlugin({
       svgFileDir: 'stories/assets/svgs',
-      outputDir: 'components/svgs'
+      outputDir: 'components/svgs',
+      typescript: true
     }))
 
     
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': path.resolve(__dirname, '../../src')
+      '@': path.resolve(__dirname, '../../src'),
     };
 
     return config;

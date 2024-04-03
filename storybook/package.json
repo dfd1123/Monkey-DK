@@ -19,6 +19,7 @@
   "dependencies": {
     "@storybook/addon-controls": "7.4.3 ",
     "@storybook/nextjs": "7.4.3",
+    "next": "^14.1.4",
     "react-docgen-typescript": "2.2.2",
     "storybook": "7.4.3",
     "storybook-addon-react-docgen": "1.2.43"
