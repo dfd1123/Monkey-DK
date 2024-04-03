@@ -84,8 +84,8 @@ class SvgComponentGenerator {
 	parseSvgListForType(list: string[]) {
 		const fileList = list.map(file => `${file.replace('.svg', '')}`);
 
-		const staticSvgIconName = fileList.map(item => `'${item}'`).join(' | ') || '';
-		const svgComponentName = fileList.map(item => `'${`Svg${startCase(item.replace(/\//gi, '-').replace('.svg', '')).replace(/ /gi, '')}'`}`).join(' | ') || '';
+		const staticSvgIconName = fileList.map(item => `'${item}'`).join(' | ') || `''`;
+		const svgComponentName = fileList.map(item => `'${`Svg${startCase(item.replace(/\//gi, '-').replace('.svg', '')).replace(/ /gi, '')}'`}`).join(' | ') || `''`;
 		const particalSvgObj = fileList.filter(item => item.includes('/')).reduce<Record<string, string>>((acc, cur) => {
 			const arr = cur.split('/');
 			const fileName = arr.pop() || '';
