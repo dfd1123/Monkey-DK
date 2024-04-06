@@ -29,19 +29,22 @@ const defaultConfig = {
 			plugins: ['@emotion'],
 		}),
 	],
+	manualChunks(id) {
+		if (id.includes('node_modules')) {
+		  return 'vendors';
+		}
+	  }
 };
 
 if (process.env.NODE_ENV === 'production') {
 	defaultConfig.plugins.push(terser({
         compress: {
+			unused: true,
+			dead_code: true,
+			conditionals: true,
             drop_console: true, // 콘솔 로그 제거
             pure_funcs: ['console.info', 'console.debug', 'console.warn'], // 특정 콘솔 함수 제거
         },
-        // mangle: {
-        //     properties: {
-        //         regex: /^_/ // 밑줄로 시작하는 프로퍼티 이름 압축
-        //     }
-        // }
     }));
 }
 

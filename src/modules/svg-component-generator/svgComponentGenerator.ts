@@ -3,7 +3,8 @@ import { existsSync, promises } from 'fs';
 import { remove } from 'fs-extra';
 import { startCase } from 'lodash-es';
 import { SVG_ATTRIBUTE_KEYS } from './svgConst';
-import { type Config as SvgConfig, optimize } from 'svgo';
+import { type Config as SvgConfig } from 'svgo';
+import { optimize } from 'svgo';
 
 const { readdir, writeFile, readFile, mkdir } = promises;
 
@@ -137,6 +138,7 @@ class SvgComponentGenerator {
 					{
 						name: 'preset-default',
 						params: {
+
 						},
 					  },
 				]
