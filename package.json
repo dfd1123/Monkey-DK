@@ -75,7 +75,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development rollup -c && node scripts/svgComponentGenerator.js & rollup -cw",
-    "build": "NODE_ENV=production rollup -c && node scripts/svgComponentGenerator.js",
+    "build": "rm -rf dist && NODE_ENV=production rollup -c && node scripts/svgComponentGenerator.js",
     "prepare": "yarn build"
   },
   "dependencies": {
