@@ -65,7 +65,10 @@
     "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.6.2",
     "typescript": ">=5.0.0",
-    "webpack-sources": "^3.2.3"
+    "webpack-sources": "^3.2.3",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "rollup-plugin-ignore": "^1.0.10"
   },
   "peerDependencies": {
     "@emotion/react": ">=10",
@@ -75,17 +78,14 @@
   },
   "scripts": {
     "start": "NODE_ENV=development rollup -c && node scripts/svgComponentGenerator.js & rollup -cw",
-    "build": "NODE_ENV=production rollup -c && node scripts/svgComponentGenerator.js",
+    "build": "rm -rf dist && NODE_ENV=production rollup -c && node scripts/svgComponentGenerator.js",
     "prepare": "yarn build"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup-plugin-ignore": "^1.0.10",
     "svgo": "^3.2.0"
   }
 }

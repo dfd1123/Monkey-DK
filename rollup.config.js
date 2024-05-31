@@ -1,8 +1,6 @@
 const babel = require('@rollup/plugin-babel').default;
 const typescript = require('@rollup/plugin-typescript');
 const json = require('@rollup/plugin-json');
-// Const nodeBuiltins = require('rollup-plugin-node-builtins');
-// const nodeGlobals = require('rollup-plugin-node-globals');
 const terser = require('@rollup/plugin-terser');
 const ignore = require('rollup-plugin-ignore');
 const resolve = require('@rollup/plugin-node-resolve').nodeResolve; // NodeResolve 함수를 직접 가져옴
@@ -20,7 +18,6 @@ const defaultConfig = {
 		json(),
 		ignore(['fsevents']),
 		resolve({
-			preferBuiltins: true,
 			extensions,
 		}),
 		commonjs(),
@@ -32,10 +29,23 @@ const defaultConfig = {
 			plugins: ['@emotion'],
 		}),
 	],
+	manualChunks(id) {
+		if (id.includes('node_modules')) {
+		  return 'vendors';
+		}
+	  }
 };
 
 if (process.env.NODE_ENV === 'production') {
-	defaultConfig.plugins.push(terser());
+	defaultConfig.plugins.push(terser({
+        compress: {
+			unused: true,
+			dead_code: true,
+			conditionals: true,
+            drop_console: true, // 콘솔 로그 제거
+            pure_funcs: ['console.info', 'console.debug', 'console.warn'], // 특정 콘솔 함수 제거
+        },
+    }));
 }
 
 const rollupConfig = () => buildTargets.map(target => {
@@ -63,12 +73,12 @@ const rollupConfig = () => buildTargets.map(target => {
 			{
 				file: `dist/${target}/${target}.cjs.js`,
 				format: 'cjs',
-				sourcemap: true,
+				sourcemap: process.env.NODE_ENV !== 'production',
 			},
 			{
 				file: `dist/${target}/${target}.esm.mjs`,
 				format: 'esm',
-				sourcemap: true,
+				sourcemap: process.env.NODE_ENV !== 'production',
 			},
 		],
 	};
@@ -92,12 +102,12 @@ module.exports = [
 			{
 				file: 'dist/index.cjs.js',
 				format: 'cjs',
-				sourcemap: true,
+				sourcemap: process.env.NODE_ENV !== 'production',
 			},
 			{
 				file: 'dist/index.esm.mjs',
 				format: 'esm',
-				sourcemap: true,
+				sourcemap: process.env.NODE_ENV !== 'production',
 			},
 		],
 	},

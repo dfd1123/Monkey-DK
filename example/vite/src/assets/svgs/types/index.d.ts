@@ -1,3 +1,3 @@
 /* eslint-disable */
-export type StaticSvgIconName = 'react';
-export type SvgComponentName = 'SvgReact'
+export type StaticSvgIconName = 'cloud-svgrepo-com' | 'react';
+export type SvgComponentName = 'SvgCloudSvgrepoCom' | 'SvgReact'

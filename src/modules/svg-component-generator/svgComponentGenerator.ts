@@ -3,7 +3,8 @@ import { existsSync, promises } from 'fs';
 import { remove } from 'fs-extra';
 import { startCase } from 'lodash-es';
 import { SVG_ATTRIBUTE_KEYS } from './svgConst';
-import { type Config as SvgConfig, optimize } from 'svgo';
+import { type Config as SvgConfig } from 'svgo';
+import { optimize } from 'svgo';
 
 const { readdir, writeFile, readFile, mkdir } = promises;
 
@@ -65,7 +66,7 @@ class SvgComponentGenerator {
 		useSvgr = false,
 		title = false,
 		description = false,
-		svgo,
+		svgo = {},
 	}: SvgComponentGeneratorOption) {
 		this.svgFileDir = svgFileDir;
 		this.outputDir = outputDir ?? svgFileDir;
@@ -128,16 +129,24 @@ class SvgComponentGenerator {
 		let componentFuncsString = '';
 
 		for (const [key, value] of fileList) {
-			let data = await readFile(`${this.svgFileDir}/${value}`, 'utf8');
+			const data = await readFile(`${this.svgFileDir}/${value}`, 'utf8');
 
-			if (this.svgo) {
-				const result = optimize(data, this.svgo);
-				data = result.data;
-			}
+			const result = optimize(data, {
+				...this.svgo,
+				plugins: [
+					...(this.svgo?.plugins ?? []),
+					{
+						name: 'preset-default',
+						params: {
+
+						},
+					  },
+				]
+			});
 
 			const regex = /(<svg[^>]*)/;
 			const replacement = '$1 {...props}';
-			let svgElement = data.replace(/(\s[a-z]+[-:][a-z]+)(?==)/g, (match, p1) => {
+			let svgElement = result.data.replace(/(\s[a-z]+[-:][a-z]+)(?==)/g, (match, p1) => {
 				// P1은 매칭된 전체 문자열입니다.
 				// 이제 -나 :을 기준으로 앞뒤 문자를 변환
 				const resultAttr = (p1 as string).replace(/([a-z])[-:]([a-z])/g, (_, p1, p2) =>
