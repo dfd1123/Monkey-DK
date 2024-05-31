@@ -119,7 +119,7 @@ class SvgComponentGenerator {
 			return acc;
 		}, {});
 		const fileList = Object.entries(fileObject);
-		const relativePath = path.relative(this.outputDir, this.svgFileDir);
+		const relativePath = path.relative(this.outputDir, this.svgFileDir).replace(/\\/gi, '/');
 		const importString = fileList.reduce((acc, [key, value]) => {
 			acc += `import ${key} from '${relativePath}/${value}';\n`;
 			return acc;
