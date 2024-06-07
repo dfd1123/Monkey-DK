@@ -3,6 +3,9 @@ const {WebpackSvgComponentPlugin} = require('monkey-d/modules');
 
 /** @type {import('next').NextConfig} */
 module.exports = {
+	compiler: {
+    styledComponents: true,
+  },
 	sassOptions: {
 		includePaths: [path.join(__dirname, 'styles')],
 		prependData: `

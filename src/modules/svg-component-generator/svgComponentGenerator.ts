@@ -1,7 +1,7 @@
 import path from 'path';
 import { existsSync, promises } from 'fs';
 import { remove } from 'fs-extra';
-import { startCase } from 'lodash-es';
+import { debounce, startCase } from 'lodash-es';
 import { SVG_ATTRIBUTE_KEYS } from './svgConst';
 import { type Config as SvgConfig } from 'svgo';
 import { optimize } from 'svgo';
@@ -281,25 +281,13 @@ class SvgComponentGenerator {
 			.catch(console.error);
 	}
 
-	generate = async () => {
-		if (generating) {
-			return;
-		}
+	generate = debounce(async () => {
+		const fileNameList = await this.readSvgFileList(this.svgFileDir);
+		const svgFileList = this.filterSvgFileNameList(fileNameList);
 
-		try {
-			generating = true;
-
-			const fileNameList = await this.readSvgFileList(this.svgFileDir);
-			const svgFileList = this.filterSvgFileNameList(fileNameList);
-
-			await this.writeSvgTypeFile(svgFileList);
-			await this.writeStaticSvgExportFile(svgFileList);
-		} finally {
-			setTimeout(() => {
-				generating = false;
-			}, 1500);
-		}
-	};
+		await this.writeSvgTypeFile(svgFileList);
+		await this.writeStaticSvgExportFile(svgFileList);
+	}, 1500);
 }
 
 export default SvgComponentGenerator;

@@ -1,23 +1,9 @@
 /* eslint-disable */ 
 import React from "react";
 
-const SvgIcoCloseBlack = (props: React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; } = {}) => { return (<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-<path fillRule="evenodd" clipRule="evenodd" d="M5.52851 5.52858C5.78886 5.26823 6.21097 5.26823 6.47132 5.52858L15.9999 15.0572L25.5285 5.52858C25.7889 5.26823 26.211 5.26823 26.4713 5.52858C26.7317 5.78892 26.7317 6.21103 26.4713 6.47138L16.9427 16L26.4712 25.5285C26.7316 25.7888 26.7316 26.2109 26.4712 26.4713C26.2109 26.7316 25.7888 26.7316 25.5284 26.4713L15.9999 16.9428L6.47132 26.4714C6.21097 26.7317 5.78886 26.7317 5.52851 26.4714C5.26816 26.211 5.26816 25.7889 5.52851 25.5286L15.0571 16L5.52851 6.47138C5.26816 6.21103 5.26816 5.78892 5.52851 5.52858Z" fill="black"/>
-</svg>
-); };
-const SvgIcoClose = (props: React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; } = {}) => { return (<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-<path fillRule="evenodd" clipRule="evenodd" d="M5.52851 5.52858C5.78886 5.26823 6.21097 5.26823 6.47132 5.52858L15.9999 15.0572L25.5285 5.52858C25.7889 5.26823 26.211 5.26823 26.4713 5.52858C26.7317 5.78892 26.7317 6.21103 26.4713 6.47138L16.9427 16L26.4712 25.5285C26.7316 25.7888 26.7316 26.2109 26.4712 26.4713C26.2109 26.7316 25.7888 26.7316 25.5284 26.4713L15.9999 16.9428L6.47132 26.4714C6.21097 26.7317 5.78886 26.7317 5.52851 26.4714C5.26816 26.211 5.26816 25.7889 5.52851 25.5286L15.0571 16L5.52851 6.47138C5.26816 6.21103 5.26816 5.78892 5.52851 5.52858Z" fill="black"/>
-</svg>
-); };
-const SvgIcoSearchBlack = (props: React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; } = {}) => { return (<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-<path d="M18.7761 17.8906L26.2702 25.3848C26.5306 25.6451 26.5306 26.0672 26.2702 26.3276C26.0099 26.5879 25.5878 26.5879 25.3274 26.3276L17.8333 18.8334L18.7761 17.8906Z" fill="black"/>
-<path fillRule="evenodd" clipRule="evenodd" d="M13.3333 20C17.0152 20 19.9999 17.0152 19.9999 13.3333C19.9999 9.65141 17.0152 6.66665 13.3333 6.66665C9.65135 6.66665 6.66659 9.65141 6.66659 13.3333C6.66659 17.0152 9.65135 20 13.3333 20ZM13.3333 21.3333C17.7515 21.3333 21.3333 17.7516 21.3333 13.3333C21.3333 8.91504 17.7515 5.33331 13.3333 5.33331C8.91497 5.33331 5.33325 8.91504 5.33325 13.3333C5.33325 17.7516 8.91497 21.3333 13.3333 21.3333Z" fill="black"/>
-</svg>
-); };
-const SvgIcoSearch = (props: React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; } = {}) => { return (<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-<path d="M18.7761 17.8906L26.2702 25.3848C26.5306 25.6451 26.5306 26.0672 26.2702 26.3276C26.0099 26.5879 25.5878 26.5879 25.3274 26.3276L17.8333 18.8334L18.7761 17.8906Z" fill="black"/>
-<path fillRule="evenodd" clipRule="evenodd" d="M13.3333 20C17.0152 20 19.9999 17.0152 19.9999 13.3333C19.9999 9.65141 17.0152 6.66665 13.3333 6.66665C9.65135 6.66665 6.66659 9.65141 6.66659 13.3333C6.66659 17.0152 9.65135 20 13.3333 20ZM13.3333 21.3333C17.7515 21.3333 21.3333 17.7516 21.3333 13.3333C21.3333 8.91504 17.7515 5.33331 13.3333 5.33331C8.91497 5.33331 5.33325 8.91504 5.33325 13.3333C5.33325 17.7516 8.91497 21.3333 13.3333 21.3333Z" fill="black"/>
-</svg>
-); };
+const SvgIcoCloseBlack = (props: React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; } = {}) => { return (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" {...props}><path fill="#000" fillRule="evenodd" d="M5.529 5.529c.26-.26.682-.26.942 0L16 15.057l9.529-9.528a.667.667 0 1 1 .942.942L16.943 16l9.528 9.529a.667.667 0 1 1-.943.942L16 16.943 6.47 26.47a.667.667 0 0 1-.942-.942L15.057 16 5.53 6.471a.667.667 0 0 1 0-.942" clipRule="evenodd"/></svg>); };
+const SvgIcoClose = (props: React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; } = {}) => { return (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" {...props}><path fill="#000" fillRule="evenodd" d="M5.529 5.529c.26-.26.682-.26.942 0L16 15.057l9.529-9.528a.667.667 0 1 1 .942.942L16.943 16l9.528 9.529a.667.667 0 1 1-.943.942L16 16.943 6.47 26.47a.667.667 0 0 1-.942-.942L15.057 16 5.53 6.471a.667.667 0 0 1 0-.942" clipRule="evenodd"/></svg>); };
+const SvgIcoSearchBlack = (props: React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; } = {}) => { return (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" {...props}><path fill="#000" d="m18.776 17.89 7.494 7.495a.667.667 0 1 1-.943.943l-7.494-7.495z"/><path fill="#000" fillRule="evenodd" d="M13.333 20a6.667 6.667 0 1 0 0-13.333 6.667 6.667 0 0 0 0 13.333m0 1.333a8 8 0 1 0 0-16 8 8 0 0 0 0 16" clipRule="evenodd"/></svg>); };
+const SvgIcoSearch = (props: React.SVGAttributes<SVGSVGElement> & { title?: string; description?: string; } = {}) => { return (<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" {...props}><path fill="#000" d="m18.776 17.89 7.494 7.495a.667.667 0 1 1-.943.943l-7.494-7.495z"/><path fill="#000" fillRule="evenodd" d="M13.333 20a6.667 6.667 0 1 0 0-13.333 6.667 6.667 0 0 0 0 13.333m0 1.333a8 8 0 1 0 0-16 8 8 0 0 0 0 16" clipRule="evenodd"/></svg>); };
 
 export {  SvgIcoCloseBlack,  SvgIcoClose,  SvgIcoSearchBlack,  SvgIcoSearch };
